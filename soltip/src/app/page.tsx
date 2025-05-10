@@ -1,5 +1,5 @@
-import { DashboardFeature } from '@/components/dashboard/dashboard-feature'
+"use client"
 
 export default function Home() {
-  return <DashboardFeature />
+  return <h1>Ola mundo</h1>
 }
