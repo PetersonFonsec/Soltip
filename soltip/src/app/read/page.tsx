@@ -1,6 +1,7 @@
 'use client'
 
-import { Keypair, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { Keypair, Connection, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { getMint } from '@solana/spl-token'
 
 const networks = {
   mainnet: 'https://api.mainnet-beta.solana.com',
@@ -31,10 +32,36 @@ export default function Read() {
     }
   }
 
+  const test2 = async () => {
+    const connection = new Connection(networks.devnet, 'confirmed')
+
+    const address = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
+    const mintData = await getMint(connection, address, 'confirmed')
+
+    console.log(
+      JSON.stringify(
+        mintData,
+        (key, value) => {
+          // Convert BigInt to String
+          if (typeof value === 'bigint') {
+            return value.toString()
+          }
+          // Handle Buffer objects
+          if (Buffer.isBuffer(value)) {
+            return `<Buffer ${value.toString('hex')}>`
+          }
+          return value
+        },
+        2,
+      ),
+    )
+  }
+
   return (
     <main>
       <h1>ler informações da rede</h1>
-      <button onClick={test}>Test</button>
+      <button onClick={test}>Test</button> <br />
+      <button onClick={test2}>Test 2</button>
     </main>
   )
 }
