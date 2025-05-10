@@ -21,6 +21,12 @@ declare global {
   interface BigInt {
     toJSON(): string
   }
+  interface Window {
+    solana?: {
+      connect: () => Promise<{ publicKey: { toString: () => string } }>;
+      isPhantom: boolean;
+    };
+  }
 }
 
 BigInt.prototype.toJSON = function () {
